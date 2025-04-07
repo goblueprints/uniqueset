@@ -78,21 +78,32 @@ difference := setA.Difference(setB)
 fmt.Println("Difference:", difference.Values()) // ["apple", "orange"]
 ```
 
-### setA := uniqueset.New[string]()
+### Working with Custom Types
 
-setA.AddAll("apple", "banana", "orange")
+```go
+type Point struct {
+ X, Y int
+}
 
-setB := uniqueset.New[string]()
-setB.AddAll("banana", "kiwi", "pear")
+func main() {
+ pointSet := uniqueset.New[Point]()
+ pointSet.Add(Point{1, 2})
+ pointSet.Add(Point{3, 4})
+ 
+ fmt.Println(pointSet.Contains(Point{1, 2})) // true
+}
 
-// Union
-union := setA.Union(setB)
-fmt.Println("Union:", union.Values()) // ["apple", "banana", "orange", "kiwi", "pear"]
+```
 
-// Intersection
-intersection := setA.Intersection(setB)
-fmt.Println("Intersection:", intersection.Values()) // ["banana"]
+## Limitations
 
-// Difference
-difference := setA.Difference(setB)
-fmt.Println("Difference:", difference.Values()) // ["apple", "orange"]
+1. Not thread-safe (for concurrent use, add synchronization)
+2. Values are returned in random order (use sort package if ordering is needed)
+
+## Contributing
+
+Pull requests are welcome. For major changes, please open an issue first to discuss what you would like to change.
+
+## License
+
+[MIT](https://choosealicense.com/licenses/mit/)
